@@ -1,329 +1,327 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>香港迪士尼 3 歲幼兒全日遊 (含魔雪奇緣) - 2026/01/31版</title>
-    <!-- Tailwind CSS -->
+    <title>24個與主相遇的時刻 - 幼兒專屬版 (2-4歲)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <style>
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f0f9ff; /* Light Blue tint (Frozen theme hint) */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&display=swap');
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background-color: #f8fafc; 
+            color: #334155; 
+            line-height: 1.8; 
         }
-        .disney-font {
-            font-family: 'Georgia', serif;
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
         }
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: #cbd5e1;
-            transform: translateX(-50%);
+        .unit-card.active .accordion-content {
+            max-height: 10000px;
+            padding-bottom: 2.5rem;
         }
-        @media (max-width: 768px) {
-            .timeline-line {
-                left: 20px;
-            }
+        .unit-card.active .chevron {
+            transform: rotate(180deg);
         }
-        /* Night Mode Gradient */
-        .night-section {
-            background: linear-gradient(to bottom, #1e1b4b, #312e81);
-            color: white;
-        }
+        .phase-card { @apply bg-white p-6 rounded-2xl border border-slate-100 mb-6 shadow-sm; }
+        .phase-title { @apply flex items-center gap-3 mb-4 font-black text-lg; }
+        .step-tag { @apply px-2 py-1 rounded text-xs font-bold uppercase tracking-wider; }
         
-        /* Frozen Theme Accent */
-        .frozen-card {
-            background: linear-gradient(to right bottom, #e0f2fe, #bfdbfe);
-            border-left: 4px solid #3b82f6;
-        }
-
-        /* Print Styles */
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-            body {
-                background-color: white;
-                -webkit-print-color-adjust: exact;
-            }
-            .card {
-                break-inside: avoid;
-                border: 1px solid #ddd;
-                box-shadow: none;
-            }
-            .night-section {
-                color: black !important;
-                background: white !important;
-                border: 1px solid #000;
-            }
-            .map-container, .schedule-container {
-                page-break-inside: avoid;
-            }
-        }
+        .tip-box { @apply bg-amber-50 border-l-4 border-amber-400 p-4 mt-4 text-sm text-amber-900 rounded-r-lg; }
+        .dialogue-text { @apply pl-4 border-l-2 border-indigo-200 text-indigo-700 font-medium my-2; }
+        .action-highlight { @apply text-rose-600 font-bold; }
         
-        .map-point:hover {
-            transform: scale(1.1);
-            z-index: 50;
-        }
+        .bg-phase-1 { @apply bg-amber-100 text-amber-700; }
+        .bg-phase-2 { @apply bg-sky-100 text-sky-700; }
+        .bg-phase-3 { @apply bg-emerald-100 text-emerald-700; }
+        .bg-phase-4 { @apply bg-indigo-100 text-indigo-700; }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="py-12 px-4 md:px-8">
+    <div class="max-w-4xl mx-auto">
+        
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-6">🧸 幼兒家庭小祭壇</h1>
+            <p class="text-slate-500 text-xl font-medium">專為 2-4 歲設計：用感官與擁抱認識天父</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <span class="flex items-center gap-1 text-sm font-bold text-amber-600">● 玩樂暖身</span>
+                <span class="flex items-center gap-1 text-sm font-bold text-sky-600">● 聽聽故事</span>
+                <span class="flex items-center gap-1 text-sm font-bold text-emerald-600">● 動動手腳</span>
+                <span class="flex items-center gap-1 text-sm font-bold text-indigo-600">● 抱抱禱告</span>
+            </div>
+            <p class="mt-4 text-xs text-slate-400">總時長建議：10-15分鐘內，幼兒坐不住時可隨時暫停。</p>
+        </header>
 
-    <!-- Navbar -->
-    <nav class="bg-blue-600 text-white p-4 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold"><i class="fas fa-snowflake mr-2 text-white"></i>迪士尼全日遊 (含魔雪奇緣)</h1>
-            <div class="flex gap-2">
-                 <span class="bg-blue-700 px-3 py-1 rounded text-xs flex items-center border border-blue-500">
-                    <i class="fas fa-calendar-alt mr-1"></i> 2026/01/31
-                 </span>
-                <button onclick="window.print()" class="no-print bg-white text-blue-700 px-4 py-1 rounded-full font-bold hover:bg-yellow-100 transition shadow-md text-sm">
-                    <i class="fas fa-file-pdf mr-1"></i> 存為 PDF
+        <div id="units-container" class="space-y-6">
+            <!-- JS 內容生成區 -->
+        </div>
+
+        <footer class="mt-24 text-center text-slate-400 pb-20 border-t pt-10">
+            <p class="font-bold">「讓小孩子到我這裡來，不要禁止他們。」</p>
+            <p class="text-sm mt-4 italic text-slate-300">點擊上方單元開啟家庭神聖時刻</p>
+        </footer>
+    </div>
+
+    <script>
+        const unitsData = [
+            {
+                id: 1, title: "不怕不怕，耶穌抱抱", theme: "克服害怕", scripture: "馬可福音 4:39", color: "bg-blue-500",
+                p1: { title: "大風吹小船", time: "2 min", desc: "讓孩子坐在大浴巾或毯子上。爸媽拉著毯子輕輕左右搖晃。", action: "爸媽發出「呼呼呼」的風聲，說：好大的風啊！船要搖來搖去了！", tip: "透過前庭覺刺激（輕微搖晃）吸引幼兒注意力。" },
+                p2: { title: "耶穌說停！", time: "3 min", desc: "講故事：「有一次風好大，船搖來搖去。門徒好害怕，『啊！』地尖叫（示範小聲尖叫）。但是耶穌站起來說：『停！』」", action: "帶孩子一起舉起手心說：「停！」然後爸媽立刻停止搖晃毯子。", dialogue: "「風停了！耶穌是不是好棒？」" },
+                p3: { title: "抱抱避風港", time: "5 min", desc: "爸媽張開雙手當作「安全的家」。讓孩子從遠處跑過來躲進爸媽懷裡。", action: "當爸媽喊「大風來了！」，孩子就跑來抱抱。", tip: "用肢體擁抱建立實體的安全感，將「耶穌的保護」具象化為父母的擁抱。" },
+                p4: { title: "拍拍背禱告", time: "1 min", desc: "輕輕拍著孩子的背，像哄睡一樣。", dialogue: "「耶穌愛我（幼兒跟著唸），保護我（跟唸），我不怕（跟唸）。阿們！」", tip: "禱告越短越好，搭配規律的拍背節奏。" }
+            },
+            {
+                id: 2, title: "我是天父的小寶貝", theme: "自我價值", scripture: "詩篇 139:14", color: "bg-indigo-500",
+                p1: { title: "神奇小鏡子", time: "2 min", desc: "拿一面安全的鏡子給孩子看。一起做鬼臉、微笑。", action: "指著鏡子裡的孩子說：「哇！這是誰呀？好可愛喔！」", tip: "2歲開始發展自我意識，鏡子遊戲非常適合。" },
+                p2: { title: "天父捏捏捏", time: "3 min", desc: "講故事：「天父好喜歡你喔！祂輕輕捏了你圓圓的臉頰（輕捏），做了你小小的耳朵（摸耳朵）。」", action: "一邊講，一邊溫柔地觸摸孩子身上的部位。", dialogue: "「天父做你的小腳丫要做什麼呢？（用來跑跑跑！）」" },
+                p3: { title: "小手印畫", time: "5 min", desc: "準備無毒印泥或水彩。讓孩子在紙上蓋一個自己的小手印。", action: "爸媽在旁邊蓋一個大手印，說：「你的小手是天父做給我們的寶貝喔。」", tip: "2-4歲喜歡觸摸顏料，手印是證明「我存在、我很特別」的具體作品。" },
+                p4: { title: "親親小臉禱告", time: "1 min", desc: "親一下孩子的額頭或臉頰。", dialogue: "「謝謝天父（跟唸），做可愛的[孩子名字]（跟唸）。阿們！」", tip: "可以用孩子的小名，增加親切感。" }
+            },
+            {
+                id: 3, title: "分給你吃，好吃！", theme: "分享與慷慨", scripture: "路加福音 6:38", color: "bg-pink-500",
+                p1: { title: "餅乾分一半", time: "2 min", desc: "拿出兩塊小餅乾或米餅。爸媽假裝很想吃，問：「可以分給爸爸/媽媽吃嗎？」", action: "引導孩子把餅乾遞給爸媽。爸媽誇張地說：「哇！謝謝你，好好吃喔！」", tip: "不要強迫孩子，如果他不願意，爸媽可以先示範「分給孩子」。" },
+                p2: { title: "小男孩的便當", time: "3 min", desc: "拿出一個小盒子當便當。講故事：「小男孩有五塊餅乾和兩條小魚。他分給耶穌。耶穌把食物變變變，變出好多好多！」", action: "從大袋子裡倒出很多積木或紙片代表「變多的食物」。", dialogue: "「哇！變出好多喔！我們一起分給大家！」" },
+                p3: { title: "餵玩具吃飯", time: "5 min", desc: "拿出家裡的玩偶（如小熊、小狗），讓孩子拿小湯匙假裝「餵」玩偶吃飯。", action: "引導孩子說：「小熊分你吃。」", tip: "2-4歲正處於發展假扮遊戲（扮家家酒）的階段，這是練習分享最好的方式。" },
+                p4: { title: "手牽手禱告", time: "1 min", desc: "全家手牽手。", dialogue: "「謝謝耶穌（跟唸），給我好吃的（跟唸）。我也會分享（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 4, title: "勇敢的小獅子", theme: "克服恐懼", scripture: "約書亞記 1:9", color: "bg-amber-500",
+                p1: { title: "獅子吼吼吼", time: "2 min", desc: "大家一起趴在地上假裝是小獅子。", action: "爸媽帶頭發出「吼～」的聲音，讓孩子模仿，把聲音放出來。", tip: "透過發聲可以釋放幼兒的緊張感與害怕。" },
+                p2: { title: "大衛打壞人", time: "3 min", desc: "拿出幾顆軟球或紙團。講故事：「有個壞巨人好高好兇。但小大衛不怕，因為神跟他在一起！」", action: "爸媽假裝是大巨人，讓孩子丟紙團。爸媽誇張地倒下：「哎呀！你贏了！」", dialogue: "「大衛好勇敢！神也會保護小[名字]喔！」" },
+                p3: { title: "勇敢小披風", time: "5 min", desc: "用一條小毛巾夾在孩子背後當作超人披風。", action: "讓孩子穿著披風在客廳跑兩圈，說：「有耶穌，我很勇敢！」", tip: "披風是一個「具象的保護罩」，對幼兒的心理暗示非常有幫助。" },
+                p4: { title: "摸摸心跳禱告", time: "1 min", desc: "把孩子的手放在自己的胸口，感受心跳。", dialogue: "「耶穌陪我（跟唸），我不怕黑（跟唸），我不怕壞人（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 5, title: "噓！安靜聽神說話", theme: "安靜與聆聽", scripture: "列王紀上 19:12", color: "bg-teal-500",
+                p1: { title: "木頭人遊戲", time: "2 min", desc: "放一點音樂，一起跳舞。音樂一停，大家就變成石頭不動。", action: "練習「動」到「靜」的轉換。幼兒需要透過身體的靜止來練習安靜。", tip: "剛開始只能停住 3 秒，慢慢拉長到 5 秒、10 秒。" },
+                p2: { title: "微小的聲音", time: "3 min", desc: "講故事：「上帝講話的時候，不是轟隆隆的大雷聲（大力拍桌），是好輕好輕的聲音。」", action: "爸媽用極小的氣音在孩子耳邊說：「耶穌愛你。」", dialogue: "「你聽得到嗎？耶穌說祂好愛你喔！」" },
+                p3: { title: "找找發聲玩具", time: "5 min", desc: "藏一個會發出小聲音的玩具（或手機播放輕微的鳥叫聲）在毯子下。", action: "大家要「安靜」才能聽到聲音在哪裡，然後把它找出來。", tip: "聽覺搜尋遊戲能高度集中幼兒的注意力。" },
+                p4: { title: "摸摸耳朵禱告", time: "1 min", desc: "爸媽輕輕揉揉孩子的小耳朵。", dialogue: "「小耳朵（跟唸），聽耶穌講話（跟唸）。阿們！」", tip: "用肢體碰觸加深對「聽」的印象。" }
+            },
+            {
+                id: 6, title: "嘴巴甜甜說好話", theme: "言語與讚美", scripture: "箴言 16:24", color: "bg-emerald-500",
+                p1: { title: "甜甜的糖果", time: "2 min", desc: "給孩子舔一小口蜂蜜，或吃一顆小軟糖。", action: "問孩子：「甜不甜？好不好吃？」", tip: "用味覺來建立「好話就像甜甜的糖」的聯想。" },
+                p2: { title: "說好話的花", time: "3 min", desc: "拿出一朵花（假花或盆栽）。", action: "示範：「如果我們對花大叫『你很醜』，花會哭哭（垂下頭）。如果我們說『你好漂亮』，花會笑喔！」", dialogue: "「我們對小花說『你好漂亮』吧！」" },
+                p3: { title: "甜言蜜語貼紙", time: "5 min", desc: "給孩子幾張小貼紙。只要家人互相說了一句好話（例如「謝謝」、「你好棒」）。", action: "就把貼紙貼在對方的手背上。", tip: "2-4歲幼兒非常喜歡貼紙，用貼紙作為正面行為的立即回饋最有效。" },
+                p4: { title: "摸摸嘴巴禱告", time: "1 min", desc: "用手指輕輕點一下孩子的嘴唇。", dialogue: "「好甜的嘴巴（跟唸），說好聽的話（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 7, title: "呼！看不見的風", theme: "聖靈的能力", scripture: "使徒行傳 2:2", color: "bg-cyan-500",
+                p1: { title: "吹泡泡時間", time: "2 min", desc: "爸媽吹出很多肥皂泡泡。", action: "讓孩子去追、去拍破泡泡。問：「泡泡為什麼會飛？因為有風把它吹上去喔！」", tip: "泡泡是幼兒最愛的視覺刺激，能完美解釋「看不見的風/聖靈」。" },
+                p2: { title: "聖靈像大風", time: "3 min", desc: "講故事：「聖靈就像風一樣，我們看不見祂，但祂可以給我們力量！」", action: "爸媽拿扇子或墊子，輕輕把風搧在孩子臉上。", dialogue: "「哇，有風耶！聖靈也像風一樣吹過來囉！」" },
+                p3: { title: "羽毛吹吹樂", time: "5 min", desc: "給孩子一根輕盈的羽毛或小衛生紙片。", action: "請孩子用力「呼～」把它吹飛起來。告訴他：「你看，風好有力量！」", tip: "練習吹氣能幫助幼兒的口腔肌肉發展，有助於說話發音。" },
+                p4: { title: "舉高高禱告", time: "1 min", desc: "爸媽雙手把孩子舉高（像飛起來一樣）。", dialogue: "「謝謝聖靈（跟唸），給我力氣（跟唸）。阿們！」", tip: "舉高的動作能給予興奮感與力量感。" }
+            },
+            {
+                id: 8, title: "洗乾淨，變漂亮！", theme: "誠實與認錯", scripture: "約翰一書 1:9", color: "bg-orange-500",
+                p1: { title: "髒髒手洗乾淨", time: "2 min", desc: "在孩子手背上用可水洗的筆畫一條線（代表做錯事髒髒的）。", action: "帶孩子去洗手台，用肥皂把線洗掉。「哇！變乾淨了！」", tip: "幼兒無法理解抽象的「罪」，用「髒髒洗乾淨」最容易懂。" },
+                p2: { title: "做錯事不害怕", time: "3 min", desc: "講故事：「如果我們不小心把水打翻了（示範假裝打翻），不用害怕說謊，我們說『對不起』。」", action: "「耶穌就像肥皂一樣，會把我們心裡洗得乾乾淨淨。」", dialogue: "「做錯事的時候，我們要說什麼？（對不起）」" },
+                p3: { title: "擦擦白板", time: "5 min", desc: "在白板或畫板上亂塗亂畫。", action: "讓孩子拿板擦或抹布，一口氣把圖案擦掉。「不見了！神原諒我們了！」", tip: "大肢體的擦拭動作對幼兒有一種舒壓的魔力。" },
+                p4: { title: "洗臉臉禱告", time: "1 min", desc: "用毛巾輕輕擦一下孩子的臉或手。", dialogue: "「做錯事，說對不起（跟唸）。耶穌原諒我（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 9, title: "亮亮燈，向前走", theme: "神的話語", scripture: "詩篇 119:105", color: "bg-yellow-500",
+                p1: { title: "手電筒遊戲", time: "2 min", desc: "把房間燈關暗。爸媽拿手電筒照在地板上。", action: "光照哪裡，孩子就去踩哪裡。「踩！踩！踩光光！」", tip: "光影遊戲是2-4歲非常著迷的活動。" },
+                p2: { title: "聖經是一本燈", time: "3 min", desc: "拿出一本聖經，在裡面夾一個小手電筒或發光玩具。", action: "翻開聖經的時候，光會透出來。「哇！聖經裡面有亮光喔，它會告訴我們怎麼走！」", dialogue: "「黑黑的時候，我們需要什麼？（燈/光）」" },
+                p3: { title: "過小橋隧道", time: "5 min", desc: "用幾個枕頭墊成一條小路，或用紙箱做個隧道。", action: "爸媽在隧道另一頭拿著手電筒說：「跟著光走過來喔！」孩子爬過來。", tip: "粗大動作發展訓練（爬行、平衡）。" },
+                p4: { title: "抱著聖經禱告", time: "1 min", desc: "讓孩子雙手抱著聖經。", dialogue: "「謝謝聖經（跟唸），像亮亮的燈（跟唸）。阿們！」", tip: "把聖經擬物化，成為一個帶來安全感的物品。" }
+            },
+            {
+                id: 10, title: "投進去，叮咚！", theme: "奉獻與感謝", scripture: "哥林多後書 9:7", color: "bg-teal-600",
+                p1: { title: "銅板叮咚響", time: "2 min", desc: "準備一個空鐵罐和幾枚硬幣或大顆積木。", action: "讓孩子把硬幣投入鐵罐，聽「叮！」的聲音。幼兒非常喜歡投擲和聲音的回饋。", tip: "這是在訓練手眼協調。" },
+                p2: { title: "我們說謝謝", time: "3 min", desc: "講故事：「天父給我們好多東西，有玩具、有飯飯。我們要對天父說謝謝！」", action: "「把這個投進去，就是跟天父說謝謝喔！」", dialogue: "「你想要跟天父說什麼謝謝？（謝謝有車車玩具！）」" },
+                p3: { title: "存錢筒貼紙", time: "5 min", desc: "準備一個小紙盒或塑膠罐當作奉獻箱。", action: "讓孩子在罐子外面貼滿貼紙。然後讓他把一個硬幣投進去保管。", tip: "可以將這個罐子帶到教會，讓他親自把裡面的錢投進奉獻箱。" },
+                p4: { title: "握緊拳頭禱告", time: "1 min", desc: "孩子把硬幣握在手心。", dialogue: "「謝謝天父（跟唸），這個送給祢（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 11, title: "我們是一家人", theme: "家庭合一", scripture: "詩篇 133:1", color: "bg-amber-700",
+                p1: { title: "夾心餅乾抱抱", time: "2 min", desc: "爸媽兩個人把孩子夾在中間，緊緊擁抱。", action: "大喊：「變成超級夾心餅乾囉！」互相搔癢。", tip: "深壓覺（擁抱）能讓幼兒情緒穩定並感到被愛。" },
+                p2: { title: "蓋大房子", time: "3 min", desc: "拿出三塊大積木。爸爸放一塊，媽媽放一塊，寶寶放一塊。", action: "「你看，我們疊在一起，就變成一棟高高的房子了！耶穌把我們黏在一起！」", dialogue: "「少一塊積木會不會倒掉？（會！大家都要在一起！）」" },
+                p3: { title: "全家蓋手印", time: "5 min", desc: "準備一張大紙。", action: "爸爸的大手、媽媽的手、孩子的小手，全部疊在紙上畫出輪廓。「這是我們一家人的手喔！」", tip: "視覺化「家庭」這個概念。" },
+                p4: { title: "手疊手禱告", time: "1 min", desc: "大家的手疊在一起（像球隊加油那樣）。", dialogue: "「相親相愛（跟唸），永遠在一起（跟唸）。阿們！」", tip: "禱告完大家一起把手往上舉喊「耶！」" }
+            },
+            {
+                id: 12, title: "找到小羊了！", theme: "關懷與找尋", scripture: "路加福音 15:6", color: "bg-red-500",
+                p1: { title: "綿羊咩咩叫", time: "2 min", desc: "大家一起在地上爬，模仿綿羊叫：「咩～咩～」。", action: "互相用頭輕輕頂來頂去（小羊打招呼）。", tip: "動物模仿是2-4歲幼兒最容易投入的遊戲。" },
+                p2: { title: "小羊不見了", time: "3 min", desc: "講故事：「有一隻小羊跑太遠，迷路了！牧羊人好著急，到處找：小羊你在哪裡？」", action: "爸媽假裝看不到孩子：「哎呀！我的小羊呢？」然後抱住孩子：「找到了！」", dialogue: "" },
+                p3: { title: "室內尋寶", time: "5 min", desc: "拿一隻絨毛娃娃（羊或狗）藏在沙發上或抱枕下（露出尾巴或腳讓孩子好找）。", action: "「快去把小羊找回來！」孩子找到時，全家大聲拍手歡呼。", tip: "客體恆存概念的遊戲（知道東西不見了其實還在）。" },
+                p4: { title: "扛在肩上禱告", time: "1 min", desc: "爸爸把孩子扛在肩膀上（或抱高）。", dialogue: "「找到小羊（跟唸），好開心（跟唸）。謝謝耶穌找我（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 13, title: "抱緊緊不放開", theme: "與神連結", scripture: "約翰福音 15:5", color: "bg-green-600",
+                p1: { title: "無尾熊抱樹", time: "2 min", desc: "爸爸或媽媽站著當作大樹。孩子當無尾熊。", action: "孩子要用力抱住大人的大腿。「抱緊緊喔！大樹要走路囉！」帶著孩子走兩步。", tip: "透過肢體攀附體驗「連結」的概念。" },
+                p2: { title: "小葡萄要喝水", time: "3 min", desc: "拿出一顆葡萄或水果。講故事：「小葡萄要黏在大樹枝上，才可以喝水長大。如果掉下來，就扁掉了。」", action: "「耶穌是大葡萄樹，我們是小葡萄，要緊緊黏著耶穌喔！」", dialogue: "" },
+                p3: { title: "黏土小葡萄", time: "5 min", desc: "用綠色或紫色的無毒黏土，揉成幾顆小圓球。", action: "讓孩子把小圓球用力「黏」在一張畫了樹枝的紙上。「黏緊緊！不會掉！」", tip: "揉捏黏土可以訓練幼兒的小肌肉。" },
+                p4: { title: "抱抱禱告", time: "1 min", desc: "大人將孩子抱在懷裡。", dialogue: "「我是小葡萄（跟唸），抱緊耶穌（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 14, title: "鹹鹹的，亮亮的！", theme: "影響力", scripture: "馬太福音 5:13", color: "bg-blue-400",
+                p1: { title: "鹹鹹吃一口", time: "2 min", desc: "準備一小口沒有味道的水煮蛋/飯，和一小口沾了微量鹽巴的。", action: "讓孩子嚐嚐看有加鹽的。「哇！有一點點鹹鹹的，比較好吃對不對？」", tip: "用味蕾直接體會鹽巴的作用。" },
+                p2: { title: "鹽巴小超人", time: "3 min", desc: "講故事：「鹽巴雖然小小顆的，但可以讓東西變好吃！耶穌說我們也是小鹽巴喔！」", action: "「你可以讓別人笑嘻嘻，就像加了鹽巴一樣好棒！」", dialogue: "「我們去逗阿公阿嬤笑，當開心的小鹽巴好不好？」" },
+                p3: { title: "仙女棒/手電筒", time: "5 min", desc: "拿一隻會發光的螢光棒或小燈籠。", action: "在暗暗的房間裡揮舞畫圈圈。「你看，光好漂亮！我們是亮亮的燈！」", tip: "視覺追視與光影刺激。" },
+                p4: { title: "點點額頭禱告", time: "1 min", desc: "爸媽輕輕點一下孩子的額頭（像點燈一樣）。", dialogue: "「我是小燈泡（跟唸），發出亮光（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 15, title: "最堅固的大石頭", theme: "順服神的話", scripture: "馬太福音 7:24", color: "bg-stone-500",
+                p1: { title: "推不倒的不倒翁", time: "2 min", desc: "如果家裡有不倒翁玩具，讓孩子去推；或者爸媽盤腿坐穩，讓孩子來推。", action: "「哎呀！推不倒！好堅固喔！」", tip: "體驗「穩固」的物理感覺。" },
+                p2: { title: "沙子與石頭", time: "3 min", desc: "講故事：「如果在軟軟的沙子上蓋房子，雨來了嘩啦啦，房子就『砰』倒了。在硬硬石頭上蓋的就不會倒！」", action: "爸媽跟孩子一起用力跺腳，感受地板的硬度。「這就是大石頭！」", dialogue: "" },
+                p3: { title: "疊高高不倒", time: "5 min", desc: "準備幾個大積木。第一次疊在軟枕頭上（倒掉）。", action: "第二次疊在硬地板上（疊很高）。「耶！聽耶穌的話，就像疊在硬地板上，好棒！」", tip: "對照實驗非常吸引幼兒，反覆倒塌和重建是他們最喜歡的遊戲。" },
+                p4: { title: "跺腳腳禱告", time: "1 min", desc: "全家一起手牽手跺腳三下。", dialogue: "「聽耶穌的話（跟唸），房子不倒塌（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 16, title: "毛毛蟲變蝴蝶", theme: "生命改變", scripture: "哥林多後書 5:17", color: "bg-lime-500",
+                p1: { title: "毛毛蟲爬爬", time: "2 min", desc: "全家一起趴在地板上，肚子貼地蠕動前進。", action: "「我們是毛毛蟲，慢慢爬～慢慢爬～」", tip: "腹爬能促進幼兒的感覺統合與大腦發展。" },
+                p2: { title: "睡覺變成蛹", time: "3 min", desc: "拿一條小毯子把孩子捲起來（像壽司/蛹一樣）。", action: "「毛毛蟲睡著了，耶穌給他施魔法！1、2、3，打開！」", dialogue: "" },
+                p3: { title: "蝴蝶飛呀飛", time: "5 min", desc: "把毯子打開後，讓孩子張開雙手像翅膀一樣在客廳跑。", action: "「變成漂亮的新蝴蝶了！飛呀飛！」可以放一首輕快的蝴蝶兒歌。", tip: "從束縛到釋放的肢體動作，能帶給幼兒極大的快樂。" },
+                p4: { title: "摸摸肩膀禱告", time: "1 min", desc: "假裝給孩子裝上隱形的翅膀（摸摸肩胛骨）。", dialogue: "「耶穌愛我（跟唸），變成新蝴蝶（跟唸），好漂亮（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 17, title: "亮晶晶的寶物", theme: "我們有耶穌", scripture: "哥林多後書 4:7", color: "bg-amber-600",
+                p1: { title: "打開驚喜盒", time: "2 min", desc: "準備一個普通或舊的紙盒，裡面放一個會發光或很漂亮的玩具。", action: "讓孩子打開。「哇！盒子醜醜的，但裡面有寶貝耶！」", tip: "拆禮物/開盒子的期待感能抓住幼兒注意力。" },
+                p2: { title: "我就是小盒子", time: "3 min", desc: "講故事：「我們就像這個盒子，有時候會哭哭、會跌倒受傷。可是耶穌住在我們裡面喔！」", action: "輕輕敲敲孩子的肚子或胸口：「叩叩叩，耶穌在裡面嗎？在喔！」", dialogue: "「耶穌在你裡面陪你嗎？（點頭）」" },
+                p3: { title: "裝飾小杯子", time: "5 min", desc: "給孩子一個普通的紙杯，讓他用彩色筆或貼紙裝飾外面。", action: "然後在杯子裡面放一顆糖果或小閃亮貼紙。「你也是裝著寶物的杯子喔！」", tip: "簡單勞作，成品可以讓孩子拿在手上玩。" },
+                p4: { title: "抱著肚子禱告", time: "1 min", desc: "讓孩子雙手抱著自己的小肚子。", dialogue: "「我是小盒子（跟唸），耶穌住裡面（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 18, title: "戴上小皇冠", theme: "神兒女的身分", scripture: "約翰一書 3:1", color: "bg-purple-500",
+                p1: { title: "紙膠帶走直線", time: "2 min", desc: "在地上貼一條紙膠帶。讓孩子試著踩在線上走。", action: "「我們要走得直直的、慢慢的，像小王子/小公主一樣喔！」", tip: "平衡感訓練，同時帶入「尊貴身分」的肢體語言。" },
+                p2: { title: "天父是國王", time: "3 min", desc: "講故事：「天父是最大的國王喔！你是天父的寶貝，所以你就是最棒的小公主/小王子！」", action: "爸媽假裝吹喇叭：「叭叭叭～小王子來囉！」", dialogue: "" },
+                p3: { title: "戴皇冠", time: "5 min", desc: "用一條紙條黏成一個簡單的頭圈（皇冠），戴在孩子頭上。", action: "全家一起為孩子拍手：「哇！好可愛的王子/公主！」帶他去照鏡子。", tip: "角色扮演是2-4歲非常重要的學習方式。" },
+                p4: { title: "摸摸頭頂禱告", time: "1 min", desc: "爸媽的手輕輕放在孩子戴著皇冠的頭頂上。", dialogue: "「天父是國王（跟唸），我是小寶貝（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 19, title: "一步一步往前走", theme: "耐心與堅持", scripture: "希伯來書 12:1", color: "bg-orange-600",
+                p1: { title: "烏龜慢慢爬", time: "2 min", desc: "背上放一個小枕頭當烏龜殼。", action: "「我們當小烏龜，雖然走得很慢，但我們不放棄喔！一步一步走！」", tip: "透過角色扮演讓「慢」和「堅持」變得有趣。" },
+                p2: { title: "耶穌牽著手", time: "3 min", desc: "講故事：「有時候走路好累好累，想哭哭。耶穌說：來，我牽你的手走！」", action: "爸媽牽起孩子的雙手，輕輕拉著他往前走兩步。", dialogue: "「累累的時候，耶穌會牽你喔！」" },
+                p3: { title: "跳過小水窪", time: "5 min", desc: "在地板上放幾張紙（當作石頭）。", action: "讓孩子踩著紙跳過去。「加油！快到終點了！跳！」到終點時給一個大擁抱。", tip: "大肢體跳躍訓練，同時體驗「達到終點」的成就感。" },
+                p4: { title: "揉揉小腳禱告", time: "1 min", desc: "讓孩子坐著，爸媽幫他輕輕揉揉小腿和小腳丫。", dialogue: "「小腳丫好棒（跟唸），耶穌陪我走（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 20, title: "敲敲門，請進！", theme: "接待與愛心", scripture: "啟示錄 3:20", color: "bg-pink-600",
+                p1: { title: "叩叩叩！是誰呀？", time: "2 min", desc: "爸媽躲在門後或紙箱後，敲敲門：「叩叩叩！」", action: "孩子跑去打開：「是爸爸/媽媽！」重複幾次，幼兒百玩不膩。", tip: "捉迷藏變體，訓練聽覺方位感。" },
+                p2: { title: "歡迎耶穌", time: "3 min", desc: "講故事：「耶穌也在敲我們心裡的小門喔！叩叩叩！我們要把門打開說：耶穌請進！」", action: "爸媽輕輕敲孩子的心口：「叩叩叩！」孩子說：「請進！」", dialogue: "「耶穌進來陪你玩囉，開心嗎？」" },
+                p3: { title: "請玩具喝茶", time: "5 min", desc: "準備幾個玩具杯子或小碗。讓孩子倒「空氣茶」給玩偶喝。", action: "「小熊來我們家玩，請他喝茶！好棒的招待喔！」", tip: "社交禮儀的早期啟蒙，透過扮家家酒練習接待。" },
+                p4: { title: "打開雙手禱告", time: "1 min", desc: "帶領孩子把雙手像開門一樣打開。", dialogue: "「打開小門（跟唸），耶穌請進來（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 21, title: "甜甜的好果子", theme: "好品格", scripture: "加拉太書 5:22", color: "bg-green-700",
+                p1: { title: "吃好吃水果", time: "2 min", desc: "切幾塊香蕉、蘋果或葡萄。讓孩子自己拿著吃。", action: "「哇！水果好甜好好吃喔！吃下去心情真好！」", tip: "真實的味覺體驗是最直接的學習。" },
+                p2: { title: "心裡長果子", time: "3 min", desc: "講故事：「聖靈在我們肚子裡面，也會長出甜甜的果子喔！叫做『開心果』、『抱抱果』。」", action: "摸摸孩子的肚子：「今天肚子裡有沒有長出開心果呀？（搔癢讓他笑）」", dialogue: "" },
+                p3: { title: "採葡萄遊戲", time: "5 min", desc: "把幾張有顏色的圓形便條紙貼在牆上（高度剛好孩子可以墊腳撕下）。", action: "讓孩子去「採果子」，採下來放進小籃子裡。「採到好多好脾氣果子！」", tip: "伸展大肌肉與墊腳尖的平衡訓練。" },
+                p4: { title: "摸摸肚子禱告", time: "1 min", desc: "爸媽的手放在孩子的肚子上輕揉。", dialogue: "「吃甜甜（跟唸），笑嘻嘻（跟唸），聖靈好愛我（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 22, title: "穿上隱形盔甲", theme: "保護與安全", scripture: "以弗所書 6:11", color: "bg-slate-500",
+                p1: { title: "戴帽子、穿襪子", time: "2 min", desc: "拿一頂帽子戴在孩子頭上，幫他穿上襪子。", action: "「帽子保護頭，襪子保護腳！準備出門囉！」", tip: "將抽象的軍裝連結到日常穿衣動作。" },
+                p2: { title: "耶穌的保護衣", time: "3 min", desc: "講故事：「耶穌也給我們看不見的保護衣喔！穿上就不怕壞人！」", action: "假裝拿隱形的衣服幫孩子穿上。戴上隱形頭盔：「卡！」穿上隱形鞋子：「咚！」", dialogue: "「穿上了！現在你是超級小精兵了！」" },
+                p3: { title: "擋住軟球球", time: "5 min", desc: "給孩子一個小抱枕當「盾牌」。爸媽丟軟軟的紙球或毛線球。", action: "讓孩子用抱枕擋住！「碰！擋住了！好厲害！」", tip: "手眼協調與反應力訓練，遊戲極具趣味性。" },
+                p4: { title: "雙手交叉禱告", time: "1 min", desc: "讓孩子雙手交叉抱在胸前（保護的姿勢）。", dialogue: "「穿上盔甲（跟唸），耶穌保護我（跟唸）。阿們！」", tip: "" }
+            },
+            {
+                id: 23, title: "大聲說：我愛耶穌", theme: "複習與宣告", scripture: "約翰一書 4:19", color: "bg-blue-700",
+                p1: { title: "大聲小聲遊戲", time: "2 min", desc: "爸媽小聲說：「我愛你。」讓孩子用小聲學。", action: "爸媽大聲說：「我愛你！」讓孩子用大聲學。「喔！聲音好有精神！」", tip: "聲音控制遊戲，幫助幼兒了解音量調節。" },
+                p2: { title: "耶穌先愛我們", time: "3 min", desc: "講故事：「耶穌給我們好多東西，給我們爸爸媽媽、給我們陽光。因為祂最愛我們了！」", action: "把孩子抱緊緊：「我們也要對耶穌說我愛祢！」", dialogue: "" },
+                p3: { title: "畫一個大愛心", time: "5 min", desc: "在空中，爸媽帶著孩子的手，畫一個超級大的愛心形狀。", action: "然後用蠟筆在紙上亂塗（或一起畫一個愛心）。「這是給耶穌的愛心喔！」", tip: "大肢體的揮舞與手部塗鴉結合。" },
+                p4: { title: "大聲讚美禱告", time: "1 min", desc: "大家一起舉起雙手看著天花板。", dialogue: "「一、二、三！耶穌，我愛祢！（大聲喊）」", tip: "充滿活力的結束。" }
+            },
+            {
+                id: 24, title: "天國的開心派對", theme: "天堂與喜樂", scripture: "啟示錄 21:4", color: "bg-pink-400",
+                p1: { title: "氣球飛高高", time: "2 min", desc: "吹一個氣球，往上拍，不讓它掉下來。", action: "「耶！好開心！像開派對一樣！」", tip: "視覺追蹤與全身協調運動。" },
+                p2: { title: "耶穌的漂亮房子", time: "3 min", desc: "講故事：「以後我們要去耶穌家玩喔！那裡叫天國。那裡沒有人哭哭，每天都好開心、好漂亮！」", action: "「那裡有好多好吃的，還有好多動物可以抱抱！」", dialogue: "「你想去耶穌家開派對嗎？（想！）」" },
+                p3: { title: "慶祝小點心", time: "5 min", desc: "拿出一個小杯子蛋糕、布丁或小零食，插上一根小蠟燭（或用假蠟燭）。", action: "全家一起拍手唱歌（唱一首歡樂的兒歌或詩歌）。「我們完成這24個遊戲了，好棒喔！」", tip: "儀式感！吃點心是最好的慶祝方式。" },
+                p4: { title: "擊掌歡呼禱告", time: "1 min", desc: "全家一起舉起雙手擊掌（High Five）。", dialogue: "「謝謝耶穌（跟唸），天天好開心（跟唸），阿們！」", tip: "活動在最高潮與歡笑聲中完美結束。" }
+            }
+        ];
+
+        const container = document.getElementById('units-container');
+
+        unitsData.forEach(unit => {
+            const card = document.createElement('div');
+            card.className = 'unit-card bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden transition-all hover:shadow-md';
+            card.innerHTML = `
+                <button class="w-full text-left p-6 flex items-center justify-between focus:outline-none" onclick="toggleUnit(this.parentElement)">
+                    <div class="flex items-center gap-5">
+                        <div class="w-14 h-14 rounded-2xl ${unit.color} text-white flex items-center justify-center font-black text-2xl shadow-md border-4 border-white ring-2 ring-${unit.color.replace('bg-', '')}/30">
+                            ${unit.id}
+                        </div>
+                        <div>
+                            <h3 class="font-black text-xl text-slate-800">${unit.title}</h3>
+                            <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mt-1">${unit.theme}</p>
+                        </div>
+                    </div>
+                    <svg class="chevron w-6 h-6 text-slate-300 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                    </svg>
                 </button>
-            </div>
-        </div>
-    </nav>
+                <div class="accordion-content px-6 bg-slate-50/50">
+                    <div class="mb-6 mt-2">
+                        <span class="bg-indigo-50 text-indigo-500 px-4 py-2 rounded-full font-bold text-sm border border-indigo-100">
+                            📖 聖經小寶盒：${unit.scripture}
+                        </span>
+                    </div>
 
-    <!-- Hero Section -->
-    <header class="relative bg-gradient-to-b from-blue-100 to-white pt-8 pb-10 text-center px-4">
-        <h2 class="text-3xl md:text-5xl font-bold text-blue-900 mb-2 disney-font">冰雪與奇妙之旅</h2>
-        <p class="text-lg text-gray-600 mb-6">3 歲寶貝專屬行程 (11:00 - 21:00)</p>
-        
-        <!-- Official Schedule Data -->
-        <div class="schedule-container max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 mb-6 text-left">
-            <div class="bg-blue-800 text-white p-3 font-bold flex justify-between items-center">
-                <span><i class="fas fa-clock mr-2"></i>當日重點表演 (2026/01/31)</span>
-                <span class="text-xs bg-blue-900 px-2 py-1 rounded">官方時間表</span>
-            </div>
-            <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div class="border-b md:border-b-0 md:border-r border-gray-100 pb-2 md:pb-0">
-                    <h4 class="font-bold text-pink-600 mb-1">🎉 迪士尼好友巡遊派對</h4>
-                    <p class="text-gray-600">12:45, <span class="bg-yellow-200 px-1 rounded font-bold">17:00 (行程選定)</span></p>
-                </div>
-                <div class="border-b md:border-b-0 border-gray-100 pb-2 md:pb-0">
-                    <h4 class="font-bold text-indigo-700 mb-1">📖 迪士尼魔法書房</h4>
-                    <p class="text-gray-600">... 16:30, 17:45, <span class="bg-indigo-100 text-indigo-800 px-1 rounded font-bold">19:00 (夜間首選)</span></p>
-                </div>
-                <div class="col-span-1 md:col-span-2 mt-2 pt-2 border-t border-gray-100 text-center">
-                     <h4 class="font-bold text-yellow-600 inline-block mr-2">🎆 星夢光影之旅 (煙火)</h4>
-                     <span class="text-red-500 font-bold">21:00 (必看壓軸)</span>
-                </div>
-            </div>
-        </div>
-    </header>
+                    <div class="phase-card">
+                        <div class="phase-title text-amber-600">
+                            <span class="step-tag bg-phase-1">1. 玩樂暖身</span> ${unit.p1.title}
+                            <span class="ml-auto text-xs font-bold text-amber-500 bg-amber-50 px-2 py-1 rounded-full">⏱️ ${unit.p1.time}</span>
+                        </div>
+                        <p class="text-slate-600 mb-3 font-medium">${unit.p1.desc}</p>
+                        <p class="action-highlight">🎈 怎麼玩：${unit.p1.action}</p>
+                        ${unit.p1.tip ? `<div class="tip-box">💡 爸媽小提醒：${unit.p1.tip}</div>` : ''}
+                    </div>
 
-    <!-- Main Content Grid -->
-    <main class="container mx-auto px-4 py-8">
-        
-        <!-- Interactive Map Visualization -->
-        <section class="mb-12 map-container">
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6"><i class="fas fa-map-marked-alt text-blue-500 mr-2"></i>全日路線圖</h2>
-            
-            <div class="relative bg-gray-50 rounded-3xl p-4 border-4 border-blue-200 aspect-[16/9] md:aspect-[2/1] overflow-hidden max-w-4xl mx-auto shadow-inner">
-                <!-- Map Background -->
-                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#6B7280 1px, transparent 1px); background-size: 20px 20px;"></div>
-                
-                <!-- Castle Center -->
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10">
-                    <i class="fas fa-chess-rook text-4xl md:text-5xl text-pink-400"></i>
-                    <p class="font-bold text-pink-600 text-xs">城堡</p>
-                </div>
+                    <div class="phase-card">
+                        <div class="phase-title text-sky-600">
+                            <span class="step-tag bg-phase-2">2. 聽聽故事</span> ${unit.p2.title}
+                            <span class="ml-auto text-xs font-bold text-sky-500 bg-sky-50 px-2 py-1 rounded-full">⏱️ ${unit.p2.time}</span>
+                        </div>
+                        <p class="text-slate-600 mb-3 font-medium">${unit.p2.desc}</p>
+                        <p class="action-highlight">🧸 動作示範：${unit.p2.action}</p>
+                        ${unit.p2.dialogue ? `<div class="dialogue-text">💬 幼兒對話：${unit.p2.dialogue}</div>` : ''}
+                    </div>
 
-                <!-- 1. Fantasyland -->
-                <div class="absolute top-[20%] left-1/2 transform -translate-x-1/2 text-center map-point z-20">
-                    <div class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center mx-auto shadow border-2 border-white font-bold text-xs">1</div>
-                    <div class="bg-white px-1 py-0.5 rounded text-[10px] font-bold shadow mt-1 whitespace-nowrap">幻想世界</div>
-                </div>
+                    <div class="phase-card">
+                        <div class="phase-title text-emerald-600">
+                            <span class="step-tag bg-phase-3">3. 動動手腳</span> ${unit.p3.title}
+                            <span class="ml-auto text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-full">⏱️ ${unit.p3.time}</span>
+                        </div>
+                        <p class="text-slate-600 mb-3 font-medium">${unit.p3.desc}</p>
+                        <p class="action-highlight">🖐️ 互動操作：${unit.p3.action}</p>
+                        ${unit.p3.tip ? `<div class="tip-box text-emerald-900 border-emerald-400 bg-emerald-50">💡 爸媽小提醒：${unit.p3.tip}</div>` : ''}
+                    </div>
 
-                <!-- 2. Lunch -->
-                <div class="absolute top-[30%] left-[65%] text-center map-point z-20">
-                    <div class="bg-yellow-500 text-white w-6 h-6 rounded-full flex items-center justify-center mx-auto shadow border-2 border-white font-bold text-xs">2</div>
-                    <div class="bg-white px-1 py-0.5 rounded text-[10px] font-bold shadow mt-1 whitespace-nowrap">午餐</div>
-                </div>
-
-                <!-- 3. Frozen World (New) -->
-                <div class="absolute top-[25%] left-[75%] text-center map-point z-20">
-                    <div class="bg-cyan-500 text-white w-8 h-8 rounded-full flex items-center justify-center mx-auto shadow-lg border-2 border-white font-bold text-sm animate-pulse">3</div>
-                    <div class="bg-white px-2 py-1 rounded text-xs font-bold shadow mt-1 whitespace-nowrap text-cyan-600">魔雪奇緣</div>
-                </div>
-
-                <!-- 4. PhilharMagic -->
-                <div class="absolute top-[35%] left-[35%] text-center map-point z-20">
-                    <div class="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center mx-auto shadow border-2 border-white font-bold text-xs">4</div>
-                    <div class="bg-white px-1 py-0.5 rounded text-[10px] font-bold shadow mt-1 whitespace-nowrap">幻想曲</div>
-                </div>
-
-                <!-- 5. Adventure -->
-                <div class="absolute bottom-[25%] left-[20%] text-center map-point z-20">
-                    <div class="bg-green-600 text-white w-6 h-6 rounded-full flex items-center justify-center mx-auto shadow border-2 border-white font-bold text-xs">5</div>
-                    <div class="bg-white px-1 py-0.5 rounded text-[10px] font-bold shadow mt-1 whitespace-nowrap">探險世界</div>
-                </div>
-
-                <!-- 6. Parade -->
-                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center map-point z-20">
-                    <div class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center mx-auto shadow border-2 border-white font-bold text-xs">6</div>
-                    <div class="bg-white px-1 py-0.5 rounded text-[10px] font-bold shadow mt-1 whitespace-nowrap">小鎮大街</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timeline -->
-        <div class="relative max-w-4xl mx-auto pb-12">
-            <div class="timeline-line md:block hidden"></div>
-
-            <!-- 11:00 Fantasyland -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-purple-600 shadow-xl w-12 h-12 rounded-full justify-center text-white font-bold text-lg mb-4 md:mb-0">11:00</div>
-                <div class="order-1 md:w-5/12 bg-white rounded-xl shadow-lg px-6 py-4 card w-full">
-                    <h3 class="font-bold text-gray-800 text-xl mb-2">🏰 幻想世界：溫和啟航</h3>
-                    <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• <b>小小世界</b>：3 歲最愛，必玩。</li>
-                        <li>• <b>旋轉木馬</b>：經典打卡位。</li>
-                        <li>• <b>小飛象</b>：可自行控制高低。</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 12:30 Lunch -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row-reverse items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-yellow-500 shadow-xl w-12 h-12 rounded-full justify-center text-white font-bold text-lg mb-4 md:mb-0">12:30</div>
-                <div class="order-1 md:w-5/12 bg-white rounded-xl shadow-lg px-6 py-4 card w-full">
-                    <h3 class="font-bold text-gray-800 text-xl mb-2">🍴 午餐：皇室宴會廳</h3>
-                    <p class="text-sm text-gray-600">冷氣充足，環境舒適。建議吃飽一點，準備下午的步行。</p>
-                </div>
-            </div>
-
-            <!-- 13:45 Frozen World (NEW) -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-cyan-500 shadow-xl w-14 h-14 rounded-full justify-center text-white font-bold text-xl mb-4 md:mb-0 ring-4 ring-cyan-100">13:45</div>
-                <div class="order-1 md:w-5/12 frozen-card rounded-xl shadow-lg px-6 py-4 card w-full">
-                    <h3 class="font-bold text-cyan-700 text-xl mb-3"><i class="fas fa-snowflake mr-2"></i>魔雪奇緣世界</h3>
-                    <img src="https://placehold.co/600x250/bae6fd/0369a1?text=World+of+Frozen" class="w-full h-32 object-cover rounded-lg mb-3" alt="魔雪奇緣世界">
-                    <div class="space-y-2 text-sm text-gray-700">
-                        <p><b>📸 必做：</b>在友誼噴泉與阿德爾城堡前拍照。</p>
-                        <p><b>❄️ 設施：魔雪奇幻之旅 (Frozen Ever After)</b><br>
-                        <span class="text-xs bg-white bg-opacity-50 px-2 py-1 rounded inline-block mt-1">
-                            <i class="fas fa-exclamation-circle text-cyan-600"></i> 注意：有輕微倒退和一小段俯衝。如小孩較膽小，建議只參觀園區拍照。
-                        </span></p>
+                    <div class="phase-card">
+                        <div class="phase-title text-indigo-600">
+                            <span class="step-tag bg-phase-4">4. 抱抱禱告</span> ${unit.p4.title}
+                            <span class="ml-auto text-xs font-bold text-indigo-500 bg-indigo-50 px-2 py-1 rounded-full">⏱️ ${unit.p4.time}</span>
+                        </div>
+                        <p class="text-slate-600 mb-3 font-medium">${unit.p4.desc}</p>
+                        <div class="dialogue-text bg-white p-3 rounded-lg border">🙏 帶領短禱：<br><span class="text-lg font-bold text-indigo-600 mt-1 block">${unit.p4.dialogue}</span></div>
+                        ${unit.p4.tip ? `<div class="tip-box text-indigo-900 border-indigo-400 bg-indigo-50">💡 爸媽小提醒：${unit.p4.tip}</div>` : ''}
                     </div>
                 </div>
-            </div>
+            `;
+            container.appendChild(card);
+        });
 
-            <!-- 15:15 PhilharMagic (Rest) -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row-reverse items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-indigo-600 shadow-xl w-12 h-12 rounded-full justify-center text-white font-bold text-lg mb-4 md:mb-0">15:15</div>
-                <div class="order-1 md:w-5/12 bg-white rounded-xl shadow-lg px-6 py-4 card w-full border-l-4 border-indigo-500">
-                    <h3 class="font-bold text-indigo-700 text-xl mb-2">🎬 休息站：米奇幻想曲</h3>
-                    <p class="text-sm text-gray-600">剛從魔雪區走回來會有點熱，這裡是最佳冷氣房。坐著看 4D 電影，讓小孩充充電。</p>
-                </div>
-            </div>
-
-            <!-- 16:15 Adventure -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-green-600 shadow-xl w-12 h-12 rounded-full justify-center text-white font-bold text-lg mb-4 md:mb-0">16:15</div>
-                <div class="order-1 md:w-5/12 bg-white rounded-xl shadow-lg px-6 py-4 card w-full">
-                    <h3 class="font-bold text-gray-800 text-xl mb-2">🌳 探險與反斗世界</h3>
-                    <p class="text-sm text-gray-600 mb-1"><b>• 森林河流之旅</b>：看噴水大象。</p>
-                    <p class="text-sm text-gray-600"><b>• 轉轉彈弓狗</b>：反斗奇兵區最溫和設施。</p>
-                </div>
-            </div>
-
-            <!-- 17:00 Parade -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row-reverse items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-12 h-12 rounded-full justify-center text-white font-bold text-lg mb-4 md:mb-0">17:00</div>
-                <div class="order-1 md:w-5/12 bg-white rounded-xl shadow-lg px-6 py-4 card w-full">
-                    <h3 class="font-bold text-blue-800 text-xl mb-2">🎉 巡遊：迪士尼好友派對</h3>
-                    <p class="text-sm text-gray-600"><b>地點：美國小鎮大街</b></p>
-                    <p class="text-sm text-gray-600">3 歲小朋友最興奮的時刻！看完後剛好去吃晚餐。</p>
-                </div>
-            </div>
-
-            <!-- 18:00 Dinner -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-red-500 shadow-xl w-12 h-12 rounded-full justify-center text-white font-bold text-lg mb-4 md:mb-0">18:00</div>
-                <div class="order-1 md:w-5/12 bg-white rounded-xl shadow-lg px-6 py-4 card w-full">
-                    <h3 class="font-bold text-gray-800 text-xl mb-2">🍔 晚餐時間</h3>
-                    <p class="text-sm text-gray-600">推薦 <b>火箭餐廳 (炸雞)</b> 或 <b>大街餐廳 (西餐)</b>。</p>
-                </div>
-            </div>
-
-            <!-- 19:00 Wondrous Book -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row-reverse items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-indigo-800 shadow-xl w-12 h-12 rounded-full justify-center text-white font-bold text-lg mb-4 md:mb-0">19:00</div>
-                <div class="order-1 md:w-5/12 bg-indigo-50 rounded-xl shadow-lg px-6 py-4 card border border-indigo-200 w-full">
-                    <h3 class="font-bold text-indigo-900 text-xl mb-2">📖 魔法書房 (夜間場)</h3>
-                    <div class="bg-indigo-100 p-2 rounded text-sm text-indigo-900 mb-2">
-                        <i class="fas fa-clock mr-1"></i><b>官方場次：19:00</b>
-                    </div>
-                    <p class="text-sm text-gray-600">這是等待煙火前的最佳靜態活動，讓小孩坐著休息看表演。</p>
-                </div>
-            </div>
-
-            <!-- 21:00 Fireworks -->
-            <div class="mb-8 flex justify-between flex-col md:flex-row items-center w-full">
-                <div class="order-1 md:w-5/12"></div>
-                <div class="z-20 flex items-center order-1 bg-yellow-400 shadow-xl w-12 h-12 rounded-full justify-center text-indigo-900 font-bold text-lg mb-4 md:mb-0">21:00</div>
-                <div class="order-1 md:w-5/12 night-section rounded-xl shadow-lg px-6 py-6 card w-full">
-                    <h3 class="font-bold text-yellow-300 text-xl mb-2"><i class="fas fa-star mr-2"></i>星夢光影之旅</h3>
-                    <p class="text-sm text-gray-200 mb-2">城堡煙火匯演，完美句點。</p>
-                    <p class="text-xs text-yellow-100 bg-indigo-900 bg-opacity-50 p-2 rounded">
-                        貼士：建議 20:15 就到美國小鎮大街找位置坐下。
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Backup Activities (Plan B) -->
-        <section class="mt-12 bg-white p-6 rounded-2xl shadow-lg border-t-4 border-green-400 page-break-avoid">
-            <h3 class="text-xl font-bold mb-4 text-center text-green-700"><i class="fas fa-clipboard-check mr-2"></i>3 個備用活動 (Plan B)</h3>
-            <p class="text-center text-sm text-gray-500 mb-6">如果遇到排隊太長、小孩太累或天氣變化，請隨時切換這些活動：</p>
+        function toggleUnit(el) {
+            const isActive = el.classList.contains('active');
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Backup 1 -->
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h4 class="font-bold text-lg text-gray-800 mb-2">1. 蟻俠與黃蜂女：擊戰特攻！</h4>
-                    <p class="text-xs text-gray-500 mb-2"><i class="fas fa-map-marker-alt mr-1"></i>明日世界</p>
-                    <p class="text-sm text-gray-600"><b>特色：</b>室內冷氣強，排隊通常較快。拿雷射槍射擊，3 歲小孩亂按也很好玩。</p>
-                </div>
-                
-                <!-- Backup 2 -->
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h4 class="font-bold text-lg text-gray-800 mb-2">2. 動畫藝術教室</h4>
-                    <p class="text-xs text-gray-500 mb-2"><i class="fas fa-map-marker-alt mr-1"></i>美國小鎮大街</p>
-                    <p class="text-sm text-gray-600"><b>特色：</b>完全靜態。老師教畫米奇，雖然 3 歲畫不出來，但可以塗鴉，家長趁機休息。</p>
-                </div>
-
-                <!-- Backup 3 -->
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h4 class="font-bold text-lg text-gray-800 mb-2">3. 魔海奇緣凱旋慶典</h4>
-                    <p class="text-xs text-gray-500 mb-2"><i class="fas fa-map-marker-alt mr-1"></i>探險世界</p>
-                    <p class="text-sm text-gray-600"><b>特色：</b>戶外劇場表演 (有遮頂)。如果魔法書房排不到，這是另一個看表演的好選擇。</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-blue-900 text-white text-center py-8 mt-12 no-print">
-        <p class="text-lg font-bold text-yellow-300">Have a Magical Day! ✨</p>
-        <p class="text-xs opacity-50 mt-2">溫馨提示：行程時間僅供參考，請依當日 APP 顯示為準。</p>
-    </footer>
-
+            // 如果希望一次只打開一個，可以取消下方兩行的註解
+            // document.querySelectorAll('.unit-card').forEach(card => card.classList.remove('active'));
+            
+            if (!isActive) el.classList.add('active');
+            else el.classList.remove('active');
+            
+            if (!isActive) {
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
+        }
+    </script>
 </body>
 </html>
